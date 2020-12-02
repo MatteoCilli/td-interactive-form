@@ -203,3 +203,75 @@ $('#payment').on('change', () => {
 
 
 //***** VALIDATION
+
+//** Basic Info Validation variables
+
+// submit button
+const $submitButton = $('button');
+// error span for submit button
+const $buttonErrorSpan = $('#button-error');
+// success span for submit button
+const $buttonSuccessSpan = $('#button-success');
+// hide submit error button
+$buttonErrorSpan.hide();
+// hide submit success button
+$buttonSuccessSpan.hide();
+// name input
+const $nameInput = $('#name');
+// email input
+const $emailInput = $('#email');
+// by default show name-hint1 error (alphabetical)
+$('#name-hint1').css("opacity", "1");
+// by default hide name-hint2 error (no name)
+$('#name-hint2').css("opacity", "0");
+
+//**NAME INPUT VALIDATION
+
+// function for name input validation on keyup
+$nameInput.keyup(() => {
+    // name input value
+    const $nameVal = $nameInput.val();
+    // name input regex
+    const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?(\s)?$/i;
+    // conditional statement if name value is not empty
+    if ($nameVal != "") {
+        // if not empty hide name input error message
+        $('#name-hint1').css("opacity", "0");
+        // if name value does not match regex
+        if (!$nameVal.match($nameRegex)) {
+            // show name error
+            $('#name-hint2').css("opacity", "1");
+        } else {
+            // hide name error
+            $('#name-hint2').css("opacity", "0");
+        }
+    } else { // if name value is empty
+        // hide name error
+        $('#name-hint2').css("opacity", "0");
+        // show blank name error
+        $('#name-hint1').css("opacity", "1");
+    }
+});
+
+
+//**EMAIL INPUT VALIDATION
+
+// function for email input validation on keyup
+$emailInput.keyup(() => {
+    // email input value
+    const $emailVal = $emailInput.val();
+    // email input regex
+    const $emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+    // conditional statement if email input does not match regex
+    if (!$emailVal.match($emailRegex)) {
+        // show email error
+        $('#email-hint').css("opacity", "1");
+    } else {
+        // hide email error
+        $('#email-hint').css("opacity", "0");
+    }
+});
+
+
+//** CHECKBOX VALIDATION
+// already done
