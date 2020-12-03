@@ -275,3 +275,206 @@ $emailInput.keyup(() => {
 
 //** CHECKBOX VALIDATION
 // already done
+
+
+//**PAYMENT VALIDATION
+
+// payment method
+const $paymentMethod = $('#payment');
+// credit card number
+const $ccNum = $('#cc-num');
+// by default show CC blank input error
+$('#cc1-hint').css("opacity", "1");
+// by default hide CC regex error
+$('#cc2-hint').css("opacity", "0");
+console.log($('#cc-num').val());
+
+// function for CC number validation on keyup
+$ccNum.keyup(() => {
+    // if CC is selected as payment mode
+    if ($paymentMethod.val('credit-card')) {
+        // CC number value
+        const $ccNumVal = $('#cc-num').val();
+        // CC number input regex
+        const $ccNumRegex = /^\d{13,16}$/;
+        // if CC number value is not empty
+        if ($ccNumVal != "") {
+            // hide blank input CC number error
+            $('#cc1-hint').css("opacity", "0");
+            // if CC number does not match regex
+            if (!$ccNumVal.match($ccNumRegex)) {
+                // show CC number regex error
+                $('#cc2-hint').css("opacity", "1");
+            } else {
+                // hide CC number regex error
+                $('#cc2-hint').css("opacity", "0");
+            }
+        } else { // if CC number field is empty
+            // hide CC number regex error
+            $('#cc2-hint').css("opacity", "0");
+            // show blank input CC number error
+            $('#cc1-hint').css("opacity", "1");
+        }
+    }
+});
+
+// ZIP code
+const $zip = $('#zip');
+// by default show ZIP error
+$("#zip-hint").css("opacity", "1");
+
+// ZIP code validation upon keyup
+$zip.keyup(() => {
+    // if credit card is selected as payment
+    if ($paymentMethod.val('credit-card')) {
+        // ZIP code value
+        const $zipVal = $('#zip').val();
+        // ZIP code regex
+        const $zipRegex = /^\d{5}$/;
+        // if the ZIP code is not empty
+        if ($zipVal != "") {
+            // hide ZIP code error message
+            $("#zip-hint").css("opacity", "0");
+            // if ZIP does not match regex
+            if (!$zipVal.match($zipRegex)) {
+                // show error message
+                $("#zip-hint").css("opacity", "1");
+            } else {
+                $("#zip-hint").css("opacity", "0");
+            }
+            // if ZIP is empty
+        } else {
+            // show error
+            $("#zip-hint").css("opacity", "1");
+        }
+    }
+});
+
+
+// CVV
+const $cvv = $('#cvv');
+// by default show CVV error
+$("#cvv-hint").css("opacity", "1");
+
+// function for CVV validation upon keyup
+$cvv.keyup(() => {
+    // if credit card is selected
+    if ($paymentMethod.val('credit-card')) {
+        // CVV value
+        const $cvvVal = $('#cvv').val();
+        // CVV input regex
+        const $cvvRegex = /^\d{3}$/;
+        // if CVV is not empty
+        if ($cvvVal != "") {
+            // hide CVV error message
+            $("#cvv-hint").css("opacity", "0");
+            // if CVV does not match regex
+            if (!$cvvVal.match($cvvRegex)) {
+                // show CVV error message
+                $("#cvv-hint").css("opacity", "1");
+            } else {
+                // hide CVV error message
+                $("#cvv-hint").css("opacity", "0");
+            }
+            // if CVV is empty
+        } else {
+            // show CVV error
+            $("#cvv-hint").css("opacity", "1");
+        }
+    }
+});
+
+
+//***** BUTTON VALIDATION
+
+// function for submit button validation upon click
+$submitButton.on('click', e => {
+    // name input value
+    const $nameVal = $nameInput.val();
+    // name input regex
+    const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?(\s)?$/i;
+    // email input value
+    const $emailVal = $emailInput.val();
+    // email input regex
+    const $emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+
+    // if name value is empty or does not match regex
+    if ($nameVal == "" || !$nameVal.match($nameRegex)) {
+        // prevent button default action
+        e.preventDefault();
+        // show button error
+        $buttonErrorSpan.show();
+    } else {
+        // hide button error
+        $buttonErrorSpan.hide();
+    }
+    // if email value does not match regex
+    if (!$emailVal.match($emailRegex)) {
+        // prevent button default action
+        e.preventDefault();
+        // show button error
+        $buttonErrorSpan.show();
+    } else {
+        // hide button error
+        $buttonErrorSpan.hide();
+    }
+    // if there are no checkboxes checked
+    if (!$('input[type=checkbox]:checked').length) {
+        // prevent button default action
+        e.preventDefault();
+        // show button error
+        $buttonErrorSpan.show();
+    } else {
+        // hide button error
+        $buttonErrorSpan.hide();
+    }
+    // if credit card is chosen as payment method
+    if ($paymentMethod.val() == 'credit-card') {
+        // CC number value
+        const $ccNumVal = $('#cc-num').val();
+        // CC number regex
+        const $ccNumRegex = /^\d{13,16}$/;
+        // ZIP value
+        const $zipVal = $('#zip').val();
+        // ZIP regex
+        const $zipRegex = /^\d{5}$/;
+        // CVV value
+        const $cvvVal = $('#cvv').val();
+        // CVV regex
+        const $cvvRegex = /^\d{3}$/;
+        // if CVV number value does not match regex
+        if (!$ccNumVal.match($ccNumRegex)) {
+            // prevent button default action
+            e.preventDefault();
+            // show button error
+            $buttonErrorSpan.show();
+        } else {
+            // show button error
+            $buttonErrorSpan.hide();
+        }
+        // if ZIP value does not match regex
+        if (!$zipVal.match($zipRegex)) {
+            // prevent button default action
+            e.preventDefault();
+            // show button error
+            $buttonErrorSpan.show();
+        } else {
+            // hide button error
+            $buttonErrorSpan.hide();
+        }
+        // if CVV does not match regex
+        if (!$cvvVal.match($cvvRegex)) {
+            // prevent button default action
+            e.preventDefault();
+            // show button error
+            $buttonErrorSpan.show();
+        } else {
+            // show button error
+            $buttonErrorSpan.hide();
+        }
+    }
+    if ($('#button-error:visible').length == 0) {
+        $buttonSuccessSpan.show();
+        e.preventDefault();
+    }
+});
