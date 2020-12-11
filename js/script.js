@@ -124,6 +124,8 @@ $total.css("font-weight", "bold");
 $('.activities').append($total);
 // show activities-hint
 $('.activities-hint').show();
+// by default hide
+$('.activities-hint').css("opacity", "0");
 
 //* and now for the real deal
 
@@ -170,6 +172,7 @@ $('.activities input').on('change', event => {
 
 // credit card as default method
 $('#payment').val('credit-card').show();
+
 // hide PP infobox when loaded
 $('#paypal').hide();
 // hide btc infobox when loaded
@@ -220,8 +223,8 @@ $buttonSuccessSpan.hide();
 const $nameInput = $('#name');
 // email input
 const $emailInput = $('#email');
-// by default show name-hint1 error (alphabetical)
-$('#name-hint1').css("opacity", "1");
+// by default hide name-hint1 error (alphabetical)
+$('#name-hint1').css("opacity", "0");
 // by default hide name-hint2 error (no name)
 $('#name-hint2').css("opacity", "0");
 
@@ -256,6 +259,9 @@ $nameInput.keyup(() => {
 
 //**EMAIL INPUT VALIDATION
 
+// by default hide name-hint1 error (alphabetical)
+$('#email-hint').css("opacity", "0");
+
 // function for email input validation on keyup
 $emailInput.keyup(() => {
     // email input value
@@ -284,10 +290,9 @@ const $paymentMethod = $('#payment');
 // credit card number
 const $ccNum = $('#cc-num');
 // by default show CC blank input error
-$('#cc1-hint').css("opacity", "1");
+$('#cc1-hint').css("opacity", "0");
 // by default hide CC regex error
 $('#cc2-hint').css("opacity", "0");
-console.log($('#cc-num').val());
 
 // function for CC number validation on keyup
 $ccNum.keyup(() => {
@@ -321,7 +326,7 @@ $ccNum.keyup(() => {
 // ZIP code
 const $zip = $('#zip');
 // by default show ZIP error
-$("#zip-hint").css("opacity", "1");
+$("#zip-hint").css("opacity", "0");
 
 // ZIP code validation upon keyup
 $zip.keyup(() => {
@@ -354,7 +359,7 @@ $zip.keyup(() => {
 // CVV
 const $cvv = $('#cvv');
 // by default show CVV error
-$("#cvv-hint").css("opacity", "1");
+$("#cvv-hint").css("opacity", "0");
 
 // function for CVV validation upon keyup
 $cvv.keyup(() => {
@@ -404,9 +409,11 @@ $submitButton.on('click', e => {
         e.preventDefault();
         // show button error
         $buttonErrorSpan.show();
+        $('#name-hint2').css("opacity", "1");
     } else {
         // hide button error
         $buttonErrorSpan.hide();
+        $('#name-hint2').css("opacity", "0");
     }
     // if email value does not match regex
     if (!$emailVal.match($emailRegex)) {
@@ -414,6 +421,7 @@ $submitButton.on('click', e => {
         e.preventDefault();
         // show button error
         $buttonErrorSpan.show();
+        $('.mail-hint').css("opacity", "1");
     } else {
         // hide button error
         $buttonErrorSpan.hide();
@@ -424,6 +432,7 @@ $submitButton.on('click', e => {
         e.preventDefault();
         // show button error
         $buttonErrorSpan.show();
+        $('.activities-hint').css("opacity", "1");
     } else {
         // hide button error
         $buttonErrorSpan.hide();
@@ -448,6 +457,7 @@ $submitButton.on('click', e => {
             e.preventDefault();
             // show button error
             $buttonErrorSpan.show();
+            $('.cc-hint').css("opacity", "1");
         } else {
             // show button error
             $buttonErrorSpan.hide();
@@ -458,6 +468,7 @@ $submitButton.on('click', e => {
             e.preventDefault();
             // show button error
             $buttonErrorSpan.show();
+            $('.zip-hint').css("opacity", "1");
         } else {
             // hide button error
             $buttonErrorSpan.hide();
@@ -468,13 +479,10 @@ $submitButton.on('click', e => {
             e.preventDefault();
             // show button error
             $buttonErrorSpan.show();
+            $('.cvv-hint').css("opacity", "1");
         } else {
             // show button error
             $buttonErrorSpan.hide();
         }
-    }
-    if ($('#button-error:visible').length == 0) {
-        $buttonSuccessSpan.show();
-        e.preventDefault();
     }
 });
