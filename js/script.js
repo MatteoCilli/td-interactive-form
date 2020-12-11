@@ -127,6 +127,7 @@ $('.activities-hint').show();
 // by default hide
 $('.activities-hint').css("opacity", "0");
 
+
 //* and now for the real deal
 
 // function for the total amount of chosen activities
@@ -159,12 +160,6 @@ $('.activities input').on('change', event => {
     }
     // populate activity cost with text containing sum amount
     $('#activity-cost').text($sum);
-    // if nothing is selected beat the devil out of activities-hint
-    if ($sum === 0) {
-        $('.activities-hint').css("opacity", "1");
-    } else {
-        $('.activities-hint').css("opacity", "0");
-    }
 });
 
 
@@ -172,7 +167,6 @@ $('.activities input').on('change', event => {
 
 // credit card as default method
 $('#payment').val('credit-card').show();
-
 // hide PP infobox when loaded
 $('#paypal').hide();
 // hide btc infobox when loaded
@@ -217,8 +211,6 @@ const $buttonErrorSpan = $('#button-error');
 const $buttonSuccessSpan = $('#button-success');
 // hide submit error button
 $buttonErrorSpan.hide();
-// hide submit success button
-$buttonSuccessSpan.hide();
 // name input
 const $nameInput = $('#name');
 // email input
@@ -228,60 +220,10 @@ $('#name-hint1').css("opacity", "0");
 // by default hide name-hint2 error (no name)
 $('#name-hint2').css("opacity", "0");
 
-//**NAME INPUT VALIDATION
-
-// function for name input validation on keyup
-$nameInput.keyup(() => {
-    // name input value
-    const $nameVal = $nameInput.val();
-    // name input regex
-    const $nameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?(\s)?$/i;
-    // conditional statement if name value is not empty
-    if ($nameVal != "") {
-        // if not empty hide name input error message
-        $('#name-hint1').css("opacity", "0");
-        // if name value does not match regex
-        if (!$nameVal.match($nameRegex)) {
-            // show name error
-            $('#name-hint2').css("opacity", "1");
-        } else {
-            // hide name error
-            $('#name-hint2').css("opacity", "0");
-        }
-    } else { // if name value is empty
-        // hide name error
-        $('#name-hint2').css("opacity", "0");
-        // show blank name error
-        $('#name-hint1').css("opacity", "1");
-    }
-});
-
-
 //**EMAIL INPUT VALIDATION
 
 // by default hide name-hint1 error (alphabetical)
 $('#email-hint').css("opacity", "0");
-
-// function for email input validation on keyup
-$emailInput.keyup(() => {
-    // email input value
-    const $emailVal = $emailInput.val();
-    // email input regex
-    const $emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
-    // conditional statement if email input does not match regex
-    if (!$emailVal.match($emailRegex)) {
-        // show email error
-        $('#email-hint').css("opacity", "1");
-    } else {
-        // hide email error
-        $('#email-hint').css("opacity", "0");
-    }
-});
-
-
-//** CHECKBOX VALIDATION
-// already done
-
 
 //**PAYMENT VALIDATION
 
@@ -289,106 +231,18 @@ $emailInput.keyup(() => {
 const $paymentMethod = $('#payment');
 // credit card number
 const $ccNum = $('#cc-num');
-// by default show CC blank input error
+// by default show CC error
 $('#cc1-hint').css("opacity", "0");
-// by default hide CC regex error
-$('#cc2-hint').css("opacity", "0");
-
-// function for CC number validation on keyup
-$ccNum.keyup(() => {
-    // if CC is selected as payment mode
-    if ($paymentMethod.val('credit-card')) {
-        // CC number value
-        const $ccNumVal = $('#cc-num').val();
-        // CC number input regex
-        const $ccNumRegex = /^\d{13,16}$/;
-        // if CC number value is not empty
-        if ($ccNumVal != "") {
-            // hide blank input CC number error
-            $('#cc1-hint').css("opacity", "0");
-            // if CC number does not match regex
-            if (!$ccNumVal.match($ccNumRegex)) {
-                // show CC number regex error
-                $('#cc2-hint').css("opacity", "1");
-            } else {
-                // hide CC number regex error
-                $('#cc2-hint').css("opacity", "0");
-            }
-        } else { // if CC number field is empty
-            // hide CC number regex error
-            $('#cc2-hint').css("opacity", "0");
-            // show blank input CC number error
-            $('#cc1-hint').css("opacity", "1");
-        }
-    }
-});
 
 // ZIP code
 const $zip = $('#zip');
 // by default show ZIP error
 $("#zip-hint").css("opacity", "0");
 
-// ZIP code validation upon keyup
-$zip.keyup(() => {
-    // if credit card is selected as payment
-    if ($paymentMethod.val('credit-card')) {
-        // ZIP code value
-        const $zipVal = $('#zip').val();
-        // ZIP code regex
-        const $zipRegex = /^\d{5}$/;
-        // if the ZIP code is not empty
-        if ($zipVal != "") {
-            // hide ZIP code error message
-            $("#zip-hint").css("opacity", "0");
-            // if ZIP does not match regex
-            if (!$zipVal.match($zipRegex)) {
-                // show error message
-                $("#zip-hint").css("opacity", "1");
-            } else {
-                $("#zip-hint").css("opacity", "0");
-            }
-            // if ZIP is empty
-        } else {
-            // show error
-            $("#zip-hint").css("opacity", "1");
-        }
-    }
-});
-
-
-// CVV
+// CVV code
 const $cvv = $('#cvv');
-// by default show CVV error
+// by default show ZIP error
 $("#cvv-hint").css("opacity", "0");
-
-// function for CVV validation upon keyup
-$cvv.keyup(() => {
-    // if credit card is selected
-    if ($paymentMethod.val('credit-card')) {
-        // CVV value
-        const $cvvVal = $('#cvv').val();
-        // CVV input regex
-        const $cvvRegex = /^\d{3}$/;
-        // if CVV is not empty
-        if ($cvvVal != "") {
-            // hide CVV error message
-            $("#cvv-hint").css("opacity", "0");
-            // if CVV does not match regex
-            if (!$cvvVal.match($cvvRegex)) {
-                // show CVV error message
-                $("#cvv-hint").css("opacity", "1");
-            } else {
-                // hide CVV error message
-                $("#cvv-hint").css("opacity", "0");
-            }
-            // if CVV is empty
-        } else {
-            // show CVV error
-            $("#cvv-hint").css("opacity", "1");
-        }
-    }
-});
-
 
 //***** BUTTON VALIDATION
 
@@ -409,11 +263,11 @@ $submitButton.on('click', e => {
         e.preventDefault();
         // show button error
         $buttonErrorSpan.show();
-        $('#name-hint2').css("opacity", "1");
+        $('#name-hint1').css("opacity", "1");
     } else {
         // hide button error
         $buttonErrorSpan.hide();
-        $('#name-hint2').css("opacity", "0");
+        $('#name-hint1').css("opacity", "0");
     }
     // if email value does not match regex
     if (!$emailVal.match($emailRegex)) {
@@ -421,10 +275,11 @@ $submitButton.on('click', e => {
         e.preventDefault();
         // show button error
         $buttonErrorSpan.show();
-        $('.mail-hint').css("opacity", "1");
+        $('.email-hint').css("opacity", "1");
     } else {
         // hide button error
         $buttonErrorSpan.hide();
+        $('.email-hint').css("opacity", "0");
     }
     // if there are no checkboxes checked
     if (!$('input[type=checkbox]:checked').length) {
@@ -436,6 +291,7 @@ $submitButton.on('click', e => {
     } else {
         // hide button error
         $buttonErrorSpan.hide();
+        $('.activities-hint').css("opacity", "0");
     }
     // if credit card is chosen as payment method
     if ($paymentMethod.val() == 'credit-card') {
@@ -457,10 +313,11 @@ $submitButton.on('click', e => {
             e.preventDefault();
             // show button error
             $buttonErrorSpan.show();
-            $('.cc-hint').css("opacity", "1");
+            $('#cc1-hint').css("opacity", "1");
         } else {
             // show button error
             $buttonErrorSpan.hide();
+            $('#cc1-hint').css("opacity", "0");
         }
         // if ZIP value does not match regex
         if (!$zipVal.match($zipRegex)) {
@@ -468,10 +325,11 @@ $submitButton.on('click', e => {
             e.preventDefault();
             // show button error
             $buttonErrorSpan.show();
-            $('.zip-hint').css("opacity", "1");
+            $('#zip-hint').css("opacity", "1");
         } else {
             // hide button error
             $buttonErrorSpan.hide();
+            $('#zip-hint').css("opacity", "0");
         }
         // if CVV does not match regex
         if (!$cvvVal.match($cvvRegex)) {
@@ -479,10 +337,16 @@ $submitButton.on('click', e => {
             e.preventDefault();
             // show button error
             $buttonErrorSpan.show();
-            $('.cvv-hint').css("opacity", "1");
+            $('#cvv-hint').css("opacity", "1");
         } else {
             // show button error
             $buttonErrorSpan.hide();
+            $('#cvv-hint').css("opacity", "0");
         }
+    }
+    if ($('#name-hint').css('opacity') == '0' && $('#email-hint').css('opacity') == '0' && $('#activities-hint').css('opacity') == '0' && $('#cc1-hint').css('opacity') == '0' && $('#zip-hint').css('opacity') == '0' && $('#cvv-hint').css('opacity') == '0') {
+        $buttonErrorSpan.hide();
+    } else {
+        $buttonErrorSpan.show();
     }
 });
