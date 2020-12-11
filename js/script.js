@@ -346,6 +346,7 @@ $submitButton.on('click', e => {
     }
     if ($('#name-hint').css('opacity') == '0' && $('#email-hint').css('opacity') == '0' && $('#activities-hint').css('opacity') == '0' && $('#cc1-hint').css('opacity') == '0' && $('#zip-hint').css('opacity') == '0' && $('#cvv-hint').css('opacity') == '0') {
         $buttonErrorSpan.hide();
+        location.reload();
     } else {
         $buttonErrorSpan.show();
     }
